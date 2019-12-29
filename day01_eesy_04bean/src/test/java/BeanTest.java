@@ -9,14 +9,19 @@ public class BeanTest {
 
     public static class Bean
     {
+        public void init() {
+            System.out.printf("Bean.init: %s.\n", this);
+        }
+        public void destroy() { System.out.printf("Bean.destroy: %s.\n", this); }
     }
 
     @Test
     public void testBean() {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("bean.xml");
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("bean.xml");
         Bean bean = applicationContext.getBean("bean", Bean.class);
         System.out.println(bean);
         assertNotNull(bean);
+        applicationContext.close();
     }
 
 }
