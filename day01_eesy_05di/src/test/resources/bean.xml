@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="conBean" class="ConstructorTest.ConBean">
+        <constructor-arg name="i" value="123"/>
+    </bean>
+
+    <bean id="setBean" class="SetterTest.SetBean">
+        <constructor-arg name="name" value="Setter"/>
+        <property name="bool" value="true"/>
+        <property name="date" value="2019/12/19 22:43:32"/>
+        <property name="set">
+            <list>
+                <value>a</value>
+                <value>b</value>
+                <value>c</value>
+            </list>
+        </property>
+        <property name="properties">
+            <map>
+                <entry key="k1" value="v1"></entry>
+                <entry key="k2" >
+                    <value>222</value>
+                </entry>
+                <entry key="k3" value-ref="now"></entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="now" class="java.util.Date"/>
+
+</beans>
