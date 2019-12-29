@@ -1,5 +1,7 @@
 package com.am.spring.itheima.service.impl;
 
+import com.am.spring.itheima.bean.BeanFactory;
+import com.am.spring.itheima.dao.IAccountDao;
 import com.am.spring.itheima.service.IAccountService;
 
 /**
@@ -7,11 +9,10 @@ import com.am.spring.itheima.service.IAccountService;
  */
 public class AccountServiceImpl implements IAccountService {
 
-    private int accountCount = 0;
+    private IAccountDao accountDao = (IAccountDao) BeanFactory.getBean("accountDao");
 
     @Override
     public void saveAccount() {
-        ++this.accountCount;
-        System.out.printf("Service %s has saved account count: %d.\n", this, accountCount);
+        accountDao.saveAccount();
     }
 }

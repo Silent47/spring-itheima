@@ -3,12 +3,16 @@ package com.am.spring.itheima.dao.impl;
 import com.am.spring.itheima.bean.BeanFactory;
 import com.am.spring.itheima.dao.IAccountDao;
 
+/**
+ * @author Love
+ */
 public class AccountDaoImpl implements IAccountDao {
 
-    private IAccountDao accountDao = (IAccountDao) BeanFactory.getBean("accountDao");
+    private int accountCount = 0;
 
     @Override
     public void saveAccount() {
-        accountDao.saveAccount();
+        ++this.accountCount;
+        System.out.printf("Dao %s has saved account count: %d.\n", this, accountCount);
     }
 }
