@@ -3,14 +3,16 @@ package com.am;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @ExtendWith(SpringExtension.class)
@@ -49,17 +51,20 @@ public class JdbcTemplateTest {
     }
 
     @Component
-    public static class JdbcBean {
+    public static class JdbcBean extends JdbcDaoSupport {
 
-        @Autowired
-        private JdbcTemplate jdbcTemplate;
+//        @Autowired
+//        private JdbcTemplate jdbcTemplate;
 
         List<Account> selectAll() {
-            return jdbcTemplate.query("select * from account", new BeanPropertyRowMapper(Account.class));
+//            return jdbcTemplate.query("select * from account", new BeanPropertyRowMapper(Account.class));
+            return getJdbcTemplate().query("select * from account", new BeanPropertyRowMapper(Account.class));
         }
     }
 
-    @Autowired
+    // @Autowired
+    // @Qualifier("JdbcBean") // or jdbc, jdbcTemplateTest.JdbcBean (bean id or name)
+    @Resource(name = "JdbcBean") // or jdbc, jdbcTemplateTest.JdbcBean (bean id or name)
     private JdbcBean jdbcBean;
 
     @Test
