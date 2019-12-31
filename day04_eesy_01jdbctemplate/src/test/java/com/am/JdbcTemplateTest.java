@@ -3,6 +3,8 @@ package com.am;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -12,7 +14,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = "classpath:bean.xml")
+//@ContextConfiguration(locations = "classpath:bean.xml")
+
+@ContextConfiguration(classes = JdbcTemplateTest.class)
+@ComponentScan("com.am")
+@ImportResource("classpath:bean.xml")
 public class JdbcTemplateTest {
 
     public static class Account {
